@@ -3,21 +3,36 @@ import pygame
 
 from window import window
 from player import player
+from controls import controls
 
-def main():
-	pygame.init()
-	window.open()
+class Game():
+	def __init__(self):
+		pygame.init()
+		pygame.mixer.init()
+		self.clock = pygame.time.Clock()
 
-	game_runned = True
+	def main(self):
+		window.set_caption("Game by DeathGodMash & KadenCode")
 
-	while game_runned:
-		for event in pygame.event.get():
-			if event.type == pygame.QUIT:
-				pygame.quit()
-				sys.exit()
+		while True:
+			for event in pygame.event.get():
+				if event.type == pygame.QUIT:
+					pygame.quit()
+					sys.exit()
 
-		player.draw(window.get_window)
-		window.update()
+			
+			controls.movement_events()
+
+			self.clock.tick(60)
+
+			window.fill()
+			
+			player.draw()
+			
+			window.update()
+
+
+game = Game()
 
 if __name__ == "__main__":
-	main()
+	game.main()

@@ -1,21 +1,19 @@
-from pygame import display
+import pygame
 
 class Window:
-	def __init__(self, caption, size: tuple):
-		self.__caption = caption
-		self.__size = size
+	def __init__(self, bg: tuple, size: tuple, mode=pygame.RESIZABLE):
+		self.mode = mode
+		self.size = size
+		self.background = bg
+		self.window = pygame.display.set_mode(self.size, self.mode)
 
-	def open(self):
-		global screen
-		screen = display.set_mode(self.__size)
-		display.set_caption(self.__caption)
+	def set_caption(self, caption):
+		pygame.display.set_caption(caption)
 
 	def update(self):
-		display.update()
+		pygame.display.update()
 
-	@property
-	def get_window(self):
-		return screen
+	def fill(self):
+		self.window.fill(self.background)
 
-
-window = Window("Game by RusIvanDen & KadenCode", (500, 500))
+window = Window((42, 0, 0), (0, 0), pygame.FULLSCREEN)

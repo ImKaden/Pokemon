@@ -1,13 +1,31 @@
 import pygame
+
 from window import window
 
 class Player:
-	def __init__(self, color: tuple, properties: tuple):
-		self.__color = color
-		self.__properties = properties
+	def __init__(self, speed, health):
+		self.window = window.window
 
-	def draw(self, window):
-		pygame.draw.rect(window, self.__color, self.__properties)
+		self.speed = speed
+		self.health = health
+		self.sprite = pygame.image.load("images/player.png")
+		
+		self.rect = self.sprite.get_rect()
+		self.window_rect = self.window.get_rect()
+		self.rect.centerx = self.window_rect.centerx
+		self.rect.bottom = self.window_rect.bottom
 
+	def draw(self):
+		self.window.blit(self.sprite, self.rect)
 
-player = Player((247, 240, 22), (150, 150, 150, 150))
+	def move(self, side):
+		if side == "UP":
+			self.rect.bottom -= self.speed
+		if side == "DOWN":
+			self.rect.bottom += self.speed
+		if side == "RIGHT":
+			self.rect.centerx += self.speed
+		if side == "LEFT":
+			self.rect.centerx -= self.speed
+
+player = Player(5, 1)
